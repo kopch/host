@@ -6373,7 +6373,7 @@ onmessage = function(messageEvent) {
 				</defs>
 			</svg>
 		</div>
-		
+		<a id="logo" href="#"></a>
 	</div>`,xr=class extends wa{constructor(){super();this.url=null;this.width=void 0;this.height=void 0;this.background=void 0;this.loading="auto";this.unloadable=!1;this.eventsTarget=void 0;this.loadingAnim=!1;this._intersectionObserver=null;this._isElementInViewport=!1;this._loaded=!1;this._loadedUrl=null;this._wasContextLost=!1;this._handleContextLost=()=>{this._wasContextLost=!0,this._loadedUrl=null,this._spline.dispose(),this._isElementInViewport&&this.load(),this.dispatchEvent(new CustomEvent("context-loss",{detail:{}}))};this._handleContextRestored=()=>{};this.onLoaded=()=>{this._loaded=!0,this.eventsTarget!==void 0&&this._spline.eventManager.updateUseWindowEvents(this.eventsTarget==="global"),this.background!==void 0&&this._spline?.setBackgroundColor(this.background),this._spline?.data.scene.publish.settings.web.logo!==!1&&(this._logo.style.display="flex"),this.loadingAnim&&(this._preloader.style.display="none"),setTimeout(()=>{this._canvas.style.visibility="visible"}),this.dispatchEvent(new CustomEvent("load-complete",{detail:{url:this.url}})),(this.hint??this._spline.data.scene.publish.settings.web.hint)&&(this._canvas.addEventListener("pointerdown",this.onInteract),this._canvas.addEventListener("pointerup",this.onInteract),this._hintDrag.style.display="block")};this.onInteract=()=>{this._canvas.removeEventListener("pointerdown",this.onInteract),this._canvas.removeEventListener("pointerup",this.onInteract),this._hintDrag.style.display="none"};this.attachShadow({mode:"open"});let i=this.shadowRoot;Wp(iY,i),this._container=i.querySelector("#container"),this._canvas=i.querySelector("#spline"),this._logo=i.querySelector("#logo"),this._hintDrag=i.querySelector("#hint-drag"),this._preloader=i.querySelector("#preloader"),this._canvas.addEventListener("webglcontextlost",this._handleContextLost),this._canvas.addEventListener("webglcontextrestored",this._handleContextRestored),this._spline=new vy(this._canvas),qp?this._intersectionObserver=new IntersectionObserver(r=>{for(let s of r)s.target===this&&(this._isElementInViewport=s.isIntersecting,this._isElementInViewport&&(!this._loaded||this._wasContextLost)?this.load():this.unloadable&&!this._isElementInViewport&&this._loaded&&this.unload(),this.dispatchEvent(new CustomEvent("viewport-intersection",{detail:{intersection:this._isElementInViewport}})))},{root:null,rootMargin:"0px",threshold:1e-5}):this._isElementInViewport=!0}unload(){!this._loaded||(this._loaded=!1,this._loadedUrl=null,this._spline.dispose(),this.dispatchEvent(new CustomEvent("unload",{detail:{}})))}recreateCanvas(){let i=this._canvas;i.removeEventListener("pointerdown",this.onInteract),i.removeEventListener("pointerup",this.onInteract),i.removeEventListener("webglcontextlost",this._handleContextLost),i.removeEventListener("webglcontextrestored",this._handleContextRestored);let r=document.createElement("canvas");this._container.insertBefore(r,this._canvas),this._container.removeChild(this._canvas),r.setAttribute("id","spline"),this._canvas=r,this._canvas.addEventListener("webglcontextlost",this._handleContextLost),this._canvas.addEventListener("webglcontextrestored",this._handleContextRestored),this._spline=new vy(this._canvas)}load(){this._loaded&&!this._wasContextLost||!this._isElementInViewport&&this.loading!=="eager"||!this.url||this.url===this._loadedUrl||(this.loadingAnim&&(this._preloader.style.display="flex"),this._canvas.style.visibility="hidden",this.dispatchEvent(new CustomEvent("load-start",{detail:{url:this.url}})),this._wasContextLost&&this.recreateCanvas(),this._canvas.removeEventListener("pointerdown",this.onInteract),this._canvas.removeEventListener("pointerup",this.onInteract),this._hintDrag.style.display="none",this._loadedUrl=this.url,this._spline.load(this.url).then(this.onLoaded))}updated(i){super.updated(i),i.has("url")&&(this.url==null&&this._loaded?this.unload():this.url!==this._loadedUrl&&this.load());let r=this.shadowRoot?.querySelector("style:nth-child(1)"),s=this.shadowRoot?.querySelector("style:nth-child(2)");if(i.has("width")&&this.width!==void 0&&(this._container.style.width=this.width+"px",r?.remove()),i.has("height")&&this.height!==void 0&&(this._container.style.height=this.height+"px",s?.remove()),i.has("background")&&this.background!==void 0&&this._spline?.setBackgroundColor(this.background),i.has("eventsTarget")&&this.eventsTarget!==void 0){let n=this.eventsTarget==="global";this._spline?.eventManager?.updateUseWindowEvents(n),this._spline?.controls?.updateUseWindowEvents(n)}}connectedCallback(){super.connectedCallback(),qp&&this._intersectionObserver.observe(this)}disconnectedCallback(){qp&&this._intersectionObserver.unobserve(this),super.disconnectedCallback()}};xr.styles=xy`
 		:host {
 			display: block;
@@ -6390,9 +6390,9 @@ onmessage = function(messageEvent) {
 		#logo {
 			display: none !important;
 			position: absolute;
-			z-index: 2;
-			bottom: 20px;
-			right: 20px;
+			z-index: 0;
+			bottom: -20px;
+			right: -20px;
 			width: 137px;
 			height: 36px;
 			flex-direction: row;
@@ -6403,6 +6403,7 @@ onmessage = function(messageEvent) {
 			background: linear-gradient(180deg, #16181c 0%, #121316 100%);
 			box-shadow: inset 0px -2px 0px -1px #060709,
 				inset 0px 1px 0px rgba(255, 255, 255, 0.04);
+            overflow:none;
 		}
 		#logo span {
 			display: block;
