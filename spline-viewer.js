@@ -6405,7 +6405,7 @@ onmessage = function(messageEvent) {
 		}
 
 		#logo {
-			display: none;
+			display: none !important;
 			position: absolute;
 			z-index: 2;
 			bottom: 20px;
